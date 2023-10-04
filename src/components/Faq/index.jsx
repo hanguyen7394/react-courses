@@ -1,8 +1,25 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import SkeletonLoading from '../SkeletonLoading';
 import { Empty } from 'antd';
 
 const Faq = ({ questions = [], loading = true }) => {
+  useEffect(() => {
+    function accordion() {
+      $(document).on('click', '.accordion .accordion__content-title', function () {
+        $(this).next().stop().slideToggle(200);
+        $(this).closest('.accordion__content').toggleClass('active');
+        $(this)
+          .closest('.accordion__content')
+          .siblings('.active')
+          .removeClass('active')
+          .find('.accordion__content-text')
+          .stop()
+          .slideUp(200);
+      });
+    }
+    accordion();
+  }, []);
+
   const renderQuestions = (label, questions) => {
     return (
       <div className="accordion">

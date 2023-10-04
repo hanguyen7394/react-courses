@@ -7,8 +7,15 @@ import { Outlet } from 'react-router-dom';
 import Overlay from '../components/Overlay';
 import MainContextProvider from '../context/MainContext';
 import AuthContextProvider from '../context/AuthContext';
+import { useEffect } from 'react';
 
 const MainLayout = () => {
+  useEffect(() => {
+    $(window).on('load', () => {
+      $('.loading').addClass('--hide');
+    });
+  }, []);
+
   return (
     <MainContextProvider>
       <AuthContextProvider>
