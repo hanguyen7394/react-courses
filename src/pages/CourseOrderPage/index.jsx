@@ -35,8 +35,7 @@ const CourseOrderPage = () => {
   } = useMutation(() => courseService.getCourseBySlug(courseSlug));
 
   const { loading: orderedLoading, execute: orderCourse } = useMutation(orderService.orderCourse);
-  const orderedDebounce = useDebounce(orderedLoading, 5000);
-  console.log('orderedDebounce :>> ', orderedDebounce);
+  const orderedDebounce = useDebounce(orderedLoading, 5000); //question
 
   const [apiIsCalled, setApiIsCalled] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState('');

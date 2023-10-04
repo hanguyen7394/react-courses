@@ -7,27 +7,33 @@ import { Outlet } from 'react-router-dom';
 import Overlay from '../components/Overlay';
 import MainContextProvider from '../context/MainContext';
 import AuthContextProvider from '../context/AuthContext';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import ComponentLoading from '../components/ComponentLoading';
 
 const MainLayout = () => {
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
-    $(window).on('load', () => {
-      $('.loading').addClass('--hide');
-    });
+    setLoading(false);
   }, []);
 
   return (
     <MainContextProvider>
       <AuthContextProvider>
-        <PageLoading />
-        <Header />
-        <Navbar />
-        <Overlay />
+        {loading ? (
+          <ComponentLoading style={{ height: '100vh' }} />
+        ) : (
+          <>
+            <Header />
+            <Navbar />
+            <Overlay />
 
-        <Outlet />
+            <Outlet />
 
-        <Footer />
-        <ModalLogin />
+            <Footer />
+            <ModalLogin />
+          </>
+        )}
       </AuthContextProvider>
     </MainContextProvider>
   );
