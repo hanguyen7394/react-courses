@@ -1,14 +1,13 @@
-import React, { lazy, Suspense } from 'react';
 import ComponentLoading from '../../components/ComponentLoading';
-const Featured = lazy(() => import('../../components/Featured'));
-const CallRegister = lazy(() => import('../../components/CallRegister'));
-const Faq = lazy(() => import('../../components/Faq'));
-const HomeCourses = lazy(() => import('./HomeCourses'));
-const HomeHero = lazy(() => import('./HomeHero'));
-const HomeCourseComing = lazy(() => import('./HomeCourseComing'));
-const HomeTeacher = lazy(() => import('./HomeTeacher'));
-const HomeGallery = lazy(() => import('./HomeGallery'));
-const HomeTestimonial = lazy(() => import('./HomeTestimonial'));
+import Featured from '../../components/Featured';
+import CallRegister from '../../components/CallRegister';
+import Faq from '../../components/Faq';
+import HomeCourses from './HomeCourses';
+import HomeHero from './HomeHero';
+import HomeCourseComing from './HomeCourseComing';
+import HomeTeacher from './HomeTeacher';
+import HomeGallery from './HomeGallery';
+import HomeTestimonial from './HomeTestimonial';
 import useQuery from '../../hooks/useQuery';
 import useDebounce from '../../hooks/useDebounce';
 import courseService from '../../services/courseService';
@@ -30,27 +29,29 @@ const Home = () => {
   const apiLoading = courseLoading || teamLoading || galleryLoading || questionLoading || rateLoading;
   const pageLoading = useDebounce(apiLoading, 300);
 
+  if (pageLoading) {
+    return <ComponentLoading />;
+  }
+
   return (
     <main className="mainwrapper">
-      <Suspense fallback={<ComponentLoading />}>
-        <HomeHero />
+      <HomeHero />
 
-        <HomeCourseComing courses={comingCourses} loading={pageLoading} />
+      <HomeCourseComing courses={comingCourses} loading={pageLoading} />
 
-        <HomeCourses courses={courseData?.courses} loading={pageLoading} />
+      <HomeCourses courses={courseData?.courses} loading={pageLoading} />
 
-        <HomeTeacher teachers={teamData?.teams} loading={pageLoading} />
+      <HomeTeacher teachers={teamData?.teams} loading={pageLoading} />
 
-        <Featured />
+      <Featured />
 
-        <HomeTestimonial rates={rateData?.rates} loading={pageLoading} />
+      <HomeTestimonial rates={rateData?.rates} loading={pageLoading} />
 
-        <Faq questions={questionData?.questions} loading={pageLoading} />
+      <Faq questions={questionData?.questions} loading={pageLoading} />
 
-        <HomeGallery galleries={galleryData?.galleries[0]} loading={pageLoading} />
+      <HomeGallery galleries={galleryData?.galleries[0]} loading={pageLoading} />
 
-        <CallRegister />
-      </Suspense>
+      <CallRegister />
     </main>
   );
 };

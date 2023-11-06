@@ -1,7 +1,7 @@
-import React, { Suspense, lazy, useEffect, useState } from 'react';
-const CourseOrderInfo = lazy(() => import('./CourseOrderInfo'));
-const CourseOrderForm = lazy(() => import('./CourseOrderForm'));
-const CourseOrderPayment = lazy(() => import('./CourseOrderPayment'));
+import React, { useEffect, useState } from 'react';
+import CourseOrderInfo from './CourseOrderInfo';
+import CourseOrderForm from './CourseOrderForm';
+import CourseOrderPayment from './CourseOrderPayment';
 import courseService from '../../services/courseService';
 import { useNavigate, useParams } from 'react-router-dom';
 import useMutation from '../../hooks/useMutation';
@@ -14,7 +14,6 @@ import Button from '../../components/Button';
 import { message } from 'antd';
 import orderService from '../../services/orderService';
 import { PATH, ROLE } from '../../constant/common';
-import ComponentLoading from '../../components/ComponentLoading';
 
 const rules = {
   name: [requireRule('Vui lòng nhập tên')],
@@ -116,28 +115,26 @@ const CourseOrderPage = () => {
 
   return (
     <main className="mainwrapper --ptop">
-      <Suspense fallback={<ComponentLoading />}>
-        <section className="sccourseorder">
-          <div className="container small">
-            <CourseOrderInfo {...courseOrderProps} loading={courseLoading} disabled={isAlreadyOrder} />
-            <CourseOrderForm register={register} types={tags} disabled={isAlreadyOrder} />
-            <CourseOrderPayment
-              handleChange={handlePaymentMethodChange}
-              selectedPayment={paymentMethod}
-              disabled={isAlreadyOrder}
-            />
+      <section className="sccourseorder">
+        <div className="container small">
+          <CourseOrderInfo {...courseOrderProps} loading={courseLoading} disabled={isAlreadyOrder} />
+          <CourseOrderForm register={register} types={tags} disabled={isAlreadyOrder} />
+          <CourseOrderPayment
+            handleChange={handlePaymentMethodChange}
+            selectedPayment={paymentMethod}
+            disabled={isAlreadyOrder}
+          />
 
-            <Button
-              style={{ width: '100%' }}
-              onClick={_onOrder}
-              loading={apiIsCalled ? orderedDebounce : false}
-              disabled={isAlreadyOrder}
-            >
-              <span>{isAlreadyOrder ? 'Đã đăng ký' : 'Đăng ký khoá học'}</span>
-            </Button>
-          </div>
-        </section>
-      </Suspense>
+          <Button
+            style={{ width: '100%' }}
+            onClick={_onOrder}
+            loading={apiIsCalled ? orderedDebounce : false}
+            disabled={isAlreadyOrder}
+          >
+            <span>{isAlreadyOrder ? 'Đã đăng ký' : 'Đăng ký khoá học'}</span>
+          </Button>
+        </div>
+      </section>
     </main>
   );
 };

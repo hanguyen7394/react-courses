@@ -1,28 +1,24 @@
-import { Suspense, lazy } from 'react';
-const Footer = lazy(() => import('../components/Footer'));
-const ModalLogin = lazy(() => import('../components/ModalLogin'));
-const Navbar = lazy(() => import('../components/Navbar'));
-const Header = lazy(() => import('../components/Header'));
-const Overlay = lazy(() => import('../components/Overlay'));
+import Footer from '../components/Footer';
+import ModalLogin from '../components/ModalLogin';
+import Navbar from '../components/Navbar';
+import Header from '../components/Header';
+import Overlay from '../components/Overlay';
 import { Outlet } from 'react-router-dom';
 import MainContextProvider from '../context/MainContext';
 import AuthContextProvider from '../context/AuthContext';
-import ComponentLoading from '../components/ComponentLoading';
 
 const MainLayout = () => {
   return (
     <MainContextProvider>
       <AuthContextProvider>
-        <Suspense fallback={<ComponentLoading style={{height: '100vh'}} />}>
-          <Header />
-          <Navbar />
-          <Overlay />
+        <Header />
+        <Navbar />
+        <Overlay />
 
-          <Outlet />
+        <Outlet />
 
-          <Footer />
-          <ModalLogin />
-        </Suspense>
+        <Footer />
+        <ModalLogin />
       </AuthContextProvider>
     </MainContextProvider>
   );

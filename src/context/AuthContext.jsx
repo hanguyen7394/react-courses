@@ -72,10 +72,12 @@ const AuthContextProvider = ({ children }) => {
       const res = await authService.login(payload);
 
       if (res?.data?.data) {
-        const {token: accessToken, refreshToken} = res.data.data;
-        tokenMethod.set({accessToken, refreshToken});
+        const { token: accessToken, refreshToken } = res.data.data;
+        tokenMethod.set({ accessToken, refreshToken });
         message.success('Đăng nhập thành công');
         handleGetProfile();
+        handleGetMyCourses();
+        handleGetMyPayments();
       }
     } catch (error) {
       message.error('Đăng nhập thất bại');
@@ -115,7 +117,7 @@ const AuthContextProvider = ({ children }) => {
       const orderedCourses = res?.data?.data?.orders || [];
       setMyCourses(orderedCourses);
     } catch (error) {
-      console.log("getMyCourses error", error);
+      console.log('getMyCourses error', error);
     }
   };
 
@@ -125,13 +127,27 @@ const AuthContextProvider = ({ children }) => {
       const payments = res?.data?.data?.orders || [];
       setMyPayments(payments);
     } catch (error) {
-      console.log("getMyPayments error", error);
+      console.log('getMyPayments error', error);
     }
   };
 
   return (
     <AuthContext.Provider
-      value={{ showedModal, profile, myCourses, myPayments, handleGetProfile, handleUpdateProfile, handleShowModal, handleCloseModal, handleLogout, handleLogin, handleRegister, handleGetMyCourses, handleGetMyPayments }}
+      value={{
+        showedModal,
+        profile,
+        myCourses,
+        myPayments,
+        handleGetProfile,
+        handleUpdateProfile,
+        handleShowModal,
+        handleCloseModal,
+        handleLogout,
+        handleLogin,
+        handleRegister,
+        handleGetMyCourses,
+        handleGetMyPayments,
+      }}
     >
       {children}
     </AuthContext.Provider>

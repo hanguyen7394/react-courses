@@ -1,13 +1,11 @@
-import React, { lazy, Suspense } from 'react';
-import ComponentLoading from '../../components/ComponentLoading';
-const CallRegister = lazy(() => import('../../components/CallRegister'));
-const AboutHero = lazy(() => import('./AboutHero'));
-const AboutStory = lazy(() => import('./AboutStory'));
-const AboutBenifit = lazy(() => import('./AboutBenifit'));
-const AboutNumbers = lazy(() => import('./AboutNumbers'));
-const AboutStudy = lazy(() => import('./AboutStudy'));
-const AboutGallery = lazy(() => import('./AboutGallery'));
-const AboutTeachers = lazy(() => import('./AboutTeachers'));
+import CallRegister from '../../components/CallRegister';
+import AboutHero from './AboutHero';
+import AboutStory from './AboutStory';
+import AboutBenifit from './AboutBenifit';
+import AboutNumbers from './AboutNumbers';
+import AboutStudy from './AboutStudy';
+import AboutGallery from './AboutGallery';
+import AboutTeachers from './AboutTeachers';
 import useQuery from '../../hooks/useQuery';
 import useDebounce from '../../hooks/useDebounce';
 import teamService from '../../services/teamService';
@@ -22,16 +20,14 @@ const AboutPage = () => {
 
   return (
     <main className="mainwrapper aboutpage">
-      <Suspense fallback={<ComponentLoading />}>
-        <AboutHero />
-        <AboutStory />
-        <AboutBenifit />
-        <AboutNumbers />
-        <AboutStudy />
-        <AboutGallery galleries={galleryData?.galleries[0]} loading={pageLoading} />
-        <AboutTeachers teachers={teamData?.teams} loading={pageLoading} />
-        <CallRegister />
-      </Suspense>
+      <AboutHero />
+      <AboutStory />
+      <AboutBenifit />
+      <AboutNumbers />
+      <AboutStudy />
+      <AboutGallery galleries={galleryData?.galleries[0]} loading={pageLoading} />
+      <AboutTeachers teachers={teamData?.teams} loading={pageLoading} />
+      <CallRegister />
     </main>
   );
 };

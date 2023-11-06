@@ -1,9 +1,8 @@
-import React, { useEffect, lazy, Suspense } from 'react';
-import ComponentLoading from '../../components/ComponentLoading';
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-const BlogDetailTitle = lazy(() => import('./BlogDetailTitle'));
-const BlogDetailContent = lazy(() => import('./BlogDetailContent'));
-const BlogDetailRelated = lazy(() => import('./BlogDetailRelated'));
+import BlogDetailTitle from './BlogDetailTitle';
+import BlogDetailContent from './BlogDetailContent';
+import BlogDetailRelated from './BlogDetailRelated';
 import useMutation from '../../hooks/useMutation';
 import blogService from '../../services/blogService';
 import useDebounce from '../../hooks/useDebounce';
@@ -40,15 +39,13 @@ const BlogDetailPage = () => {
 
   return (
     <main className="mainwrapper blogdetail --ptop">
-      <Suspense fallback={<ComponentLoading />}>
-        <div className="container">
-          <div className="wrapper">
-            <BlogDetailTitle {...blogProps} />
-            <BlogDetailContent {...blogProps} loading={loadingPage} />
-          </div>
-          <BlogDetailRelated blogs={blogsRelated?.blogs} loading={loadingPage} />
+      <div className="container">
+        <div className="wrapper">
+          <BlogDetailTitle {...blogProps} />
+          <BlogDetailContent {...blogProps} loading={loadingPage} />
         </div>
-      </Suspense>
+        <BlogDetailRelated blogs={blogsRelated?.blogs} loading={loadingPage} />
+      </div>
     </main>
   );
 };
