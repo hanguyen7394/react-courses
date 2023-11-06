@@ -31,7 +31,7 @@ const BlogList = ({ selectedCategory }) => {
               <BlogItem key={blog?.id} {...blog} />
             ))}
           </div>
-          <Pagination />
+          {/* <Pagination /> */}
         </>
       )}
       {!loadingDebounce && !blogs?.length && <Empty description="Không tìm thấy bài viết nào" />}
