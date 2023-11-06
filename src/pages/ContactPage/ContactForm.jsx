@@ -5,7 +5,6 @@ import TextArea from '../../components/TextArea';
 import Button from '../../components/Button';
 import useForm from '../../hooks/useForm';
 import { regrexRule, requireRule } from '../../utils/validate';
-import useDebounce from '../../hooks/useDebounce';
 import { message } from 'antd';
 
 const rules = {
